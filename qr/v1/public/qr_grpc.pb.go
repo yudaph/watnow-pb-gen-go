@@ -18,86 +18,86 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// MessageServiceClient is the client API for MessageService service.
+// QRServiceClient is the client API for QRService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type MessageServiceClient interface {
+type QRServiceClient interface {
 	RequestQR(ctx context.Context, in *RequestQRRequest, opts ...grpc.CallOption) (*RequestQRResponse, error)
 }
 
-type messageServiceClient struct {
+type qRServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewMessageServiceClient(cc grpc.ClientConnInterface) MessageServiceClient {
-	return &messageServiceClient{cc}
+func NewQRServiceClient(cc grpc.ClientConnInterface) QRServiceClient {
+	return &qRServiceClient{cc}
 }
 
-func (c *messageServiceClient) RequestQR(ctx context.Context, in *RequestQRRequest, opts ...grpc.CallOption) (*RequestQRResponse, error) {
+func (c *qRServiceClient) RequestQR(ctx context.Context, in *RequestQRRequest, opts ...grpc.CallOption) (*RequestQRResponse, error) {
 	out := new(RequestQRResponse)
-	err := c.cc.Invoke(ctx, "/public.MessageService/RequestQR", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/public.QRService/RequestQR", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// MessageServiceServer is the server API for MessageService service.
-// All implementations must embed UnimplementedMessageServiceServer
+// QRServiceServer is the server API for QRService service.
+// All implementations must embed UnimplementedQRServiceServer
 // for forward compatibility
-type MessageServiceServer interface {
+type QRServiceServer interface {
 	RequestQR(context.Context, *RequestQRRequest) (*RequestQRResponse, error)
-	mustEmbedUnimplementedMessageServiceServer()
+	mustEmbedUnimplementedQRServiceServer()
 }
 
-// UnimplementedMessageServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedMessageServiceServer struct {
+// UnimplementedQRServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedQRServiceServer struct {
 }
 
-func (UnimplementedMessageServiceServer) RequestQR(context.Context, *RequestQRRequest) (*RequestQRResponse, error) {
+func (UnimplementedQRServiceServer) RequestQR(context.Context, *RequestQRRequest) (*RequestQRResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RequestQR not implemented")
 }
-func (UnimplementedMessageServiceServer) mustEmbedUnimplementedMessageServiceServer() {}
+func (UnimplementedQRServiceServer) mustEmbedUnimplementedQRServiceServer() {}
 
-// UnsafeMessageServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to MessageServiceServer will
+// UnsafeQRServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to QRServiceServer will
 // result in compilation errors.
-type UnsafeMessageServiceServer interface {
-	mustEmbedUnimplementedMessageServiceServer()
+type UnsafeQRServiceServer interface {
+	mustEmbedUnimplementedQRServiceServer()
 }
 
-func RegisterMessageServiceServer(s grpc.ServiceRegistrar, srv MessageServiceServer) {
-	s.RegisterService(&MessageService_ServiceDesc, srv)
+func RegisterQRServiceServer(s grpc.ServiceRegistrar, srv QRServiceServer) {
+	s.RegisterService(&QRService_ServiceDesc, srv)
 }
 
-func _MessageService_RequestQR_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _QRService_RequestQR_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RequestQRRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MessageServiceServer).RequestQR(ctx, in)
+		return srv.(QRServiceServer).RequestQR(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/public.MessageService/RequestQR",
+		FullMethod: "/public.QRService/RequestQR",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MessageServiceServer).RequestQR(ctx, req.(*RequestQRRequest))
+		return srv.(QRServiceServer).RequestQR(ctx, req.(*RequestQRRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// MessageService_ServiceDesc is the grpc.ServiceDesc for MessageService service.
+// QRService_ServiceDesc is the grpc.ServiceDesc for QRService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var MessageService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "public.MessageService",
-	HandlerType: (*MessageServiceServer)(nil),
+var QRService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "public.QRService",
+	HandlerType: (*QRServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "RequestQR",
-			Handler:    _MessageService_RequestQR_Handler,
+			Handler:    _QRService_RequestQR_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

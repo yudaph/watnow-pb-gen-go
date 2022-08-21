@@ -31,7 +31,7 @@ var _ = runtime.String
 var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
-func request_MessageService_RequestQR_0(ctx context.Context, marshaler runtime.Marshaler, client MessageServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_QRService_RequestQR_0(ctx context.Context, marshaler runtime.Marshaler, client QRServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq RequestQRRequest
 	var metadata runtime.ServerMetadata
 
@@ -57,7 +57,7 @@ func request_MessageService_RequestQR_0(ctx context.Context, marshaler runtime.M
 
 }
 
-func local_request_MessageService_RequestQR_0(ctx context.Context, marshaler runtime.Marshaler, server MessageServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_QRService_RequestQR_0(ctx context.Context, marshaler runtime.Marshaler, server QRServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq RequestQRRequest
 	var metadata runtime.ServerMetadata
 
@@ -83,25 +83,25 @@ func local_request_MessageService_RequestQR_0(ctx context.Context, marshaler run
 
 }
 
-// RegisterMessageServiceHandlerServer registers the http handlers for service MessageService to "mux".
-// UnaryRPC     :call MessageServiceServer directly.
+// RegisterQRServiceHandlerServer registers the http handlers for service QRService to "mux".
+// UnaryRPC     :call QRServiceServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
-// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterMessageServiceHandlerFromEndpoint instead.
-func RegisterMessageServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, server MessageServiceServer) error {
+// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterQRServiceHandlerFromEndpoint instead.
+func RegisterQRServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, server QRServiceServer) error {
 
-	mux.Handle("GET", pattern_MessageService_RequestQR_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_QRService_RequestQR_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/public.MessageService/RequestQR", runtime.WithHTTPPathPattern("/v1/qr/{phone}"))
+		ctx, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/public.QRService/RequestQR", runtime.WithHTTPPathPattern("/v1/qr/{phone}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_MessageService_RequestQR_0(ctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_QRService_RequestQR_0(ctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -109,16 +109,16 @@ func RegisterMessageServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 			return
 		}
 
-		forward_MessageService_RequestQR_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_QRService_RequestQR_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
 	return nil
 }
 
-// RegisterMessageServiceHandlerFromEndpoint is same as RegisterMessageServiceHandler but
+// RegisterQRServiceHandlerFromEndpoint is same as RegisterQRServiceHandler but
 // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
-func RegisterMessageServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+func RegisterQRServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
 	conn, err := grpc.Dial(endpoint, opts...)
 	if err != nil {
 		return err
@@ -138,40 +138,40 @@ func RegisterMessageServiceHandlerFromEndpoint(ctx context.Context, mux *runtime
 		}()
 	}()
 
-	return RegisterMessageServiceHandler(ctx, mux, conn)
+	return RegisterQRServiceHandler(ctx, mux, conn)
 }
 
-// RegisterMessageServiceHandler registers the http handlers for service MessageService to "mux".
+// RegisterQRServiceHandler registers the http handlers for service QRService to "mux".
 // The handlers forward requests to the grpc endpoint over "conn".
-func RegisterMessageServiceHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
-	return RegisterMessageServiceHandlerClient(ctx, mux, NewMessageServiceClient(conn))
+func RegisterQRServiceHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
+	return RegisterQRServiceHandlerClient(ctx, mux, NewQRServiceClient(conn))
 }
 
-// RegisterMessageServiceHandlerClient registers the http handlers for service MessageService
-// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "MessageServiceClient".
-// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "MessageServiceClient"
+// RegisterQRServiceHandlerClient registers the http handlers for service QRService
+// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "QRServiceClient".
+// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "QRServiceClient"
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
-// "MessageServiceClient" to call the correct interceptors.
-func RegisterMessageServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux, client MessageServiceClient) error {
+// "QRServiceClient" to call the correct interceptors.
+func RegisterQRServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux, client QRServiceClient) error {
 
-	mux.Handle("GET", pattern_MessageService_RequestQR_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_QRService_RequestQR_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
-		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/public.MessageService/RequestQR", runtime.WithHTTPPathPattern("/v1/qr/{phone}"))
+		ctx, err = runtime.AnnotateContext(ctx, mux, req, "/public.QRService/RequestQR", runtime.WithHTTPPathPattern("/v1/qr/{phone}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_MessageService_RequestQR_0(ctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_QRService_RequestQR_0(ctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_MessageService_RequestQR_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_QRService_RequestQR_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -179,9 +179,9 @@ func RegisterMessageServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 }
 
 var (
-	pattern_MessageService_RequestQR_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "qr", "phone"}, ""))
+	pattern_QRService_RequestQR_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "qr", "phone"}, ""))
 )
 
 var (
-	forward_MessageService_RequestQR_0 = runtime.ForwardResponseMessage
+	forward_QRService_RequestQR_0 = runtime.ForwardResponseMessage
 )
